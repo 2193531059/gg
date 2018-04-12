@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white_color">#ffffff</color>
+    <color name="light_gray_color">#ede9e9</color>
+    <color name="gray_color">#a6a4a4</color>
+    <color name="black_color">#494949</color>
+    <color name="app_black_color">#616060</color>
+    <color name="app_green_color">#27d68a</color>
+    <color name="app_red_color">#d81e06</color>
+    <color name="app_blue_color">#1296db</color>
+    <color name="hint_color">#bfbfbf</color>
+    <color name="default_text_color">#bfbfbf</color>
+    <color name="interval_color">#e7e5e5</color>
+    <color name="tr_black_color">#77616060</color>
+    <color name="p2p_back_color">#91bcd3e4</color>
+
+
+    <color name="colorPrimaryDark">#373b3e</color>
+    <color name="colorPrimary" >#373b3e</color>
+    <color name="color_8290AF">#8290AF</color>
+    <color name="color_232323">#232323</color>
+    <color name="color_aeaeae">#aeaeae</color>
+    <color name="im_social_dig_name_bg">#DDDDDD</color>
+    <color name="im_font_color_text_hint">#abb1b6</color>
+    <color name="im_line_color">#dadada</color>
+    <color name="name_selector_color">#cccccc</color>
+    <color name="transparent">#00000000</color>
+    <color name="bg_no_photo">#EEEEEE</color>
+    <color name="title_bg">#373B3E</color>
+    <color name="video_bg">#ededed</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="white">#ffffffff</color>
+
+    <!--========================-->
+    <color name="praise_item_default">#333333</color>
+    <color name="praise_item_selector_default">#cccccc</color>
+    <color name="praise_item">#8290AF</color>
+
+    <color name="default_clickable_color">#cccccc</color>
+    <color name="basic_color_primary">#373b3e</color>
+</resources>

@@ -1,0 +1,17 @@
+*.iml
+.gradle
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.idea
+.idea/compiler.xml
+.idea/copyright/
+.idea/dictionaries/
+.idea/gradle.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+app/release/
+ez_chat_keystore.jks
