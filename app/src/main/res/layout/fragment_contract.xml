@@ -97,13 +97,23 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <ImageView
+        <com.mikepenz.iconics.view.IconicsImageView
             android:id="@+id/iv_group_chat"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="5dp"
+            android:padding="10dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/group_chat"/>
+            app:iiv_icon="@string/gmd_videocam"
+            app:iiv_color="@color/md_green_600"
+            app:iiv_size="30dp"/>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_group_chat"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:padding="5dp"-->
+            <!--android:scaleType="fitXY"-->
+            <!--android:src="@mipmap/group_chat"/>-->
 
         <TextView
             android:layout_width="wrap_content"

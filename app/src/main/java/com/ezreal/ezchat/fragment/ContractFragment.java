@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 
 import com.ezreal.chat.MainActivity;
+import com.ezreal.chat.VideoActivity;
 import com.ezreal.ezchat.R;
 import com.ezreal.ezchat.activity.FriendInfoActivity;
 import com.ezreal.ezchat.activity.CheckNotifyListActivity;
@@ -163,9 +164,9 @@ public class ContractFragment extends BaseFragment {
 
     @OnClick(R.id.layout_group_chat)
     public void openGroupListActivity() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
+        Intent intent = new Intent(getContext(), VideoActivity.class);
         startActivity(intent);
-        Toast.makeText(getContext(), "朋友圈", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "录像", Toast.LENGTH_SHORT).show();
     }
 
     @Override

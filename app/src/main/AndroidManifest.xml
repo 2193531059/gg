@@ -3,7 +3,7 @@
     package="com.ezreal.ezchat">
 
     <!-- 权限声明 -->
-    <!-- 访问网络状态-->
+    <!-- 访问网络状态 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!--定位相关-->
+    <!-- 定位相关 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
@@ -61,48 +61,39 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.RegisterActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SearchUserActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.FriendInfoActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.RequestFriendActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.CheckNotifyListActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.AccountInfoActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.P2PChatActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -110,21 +101,20 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
-        <!--   <activity
+        <!--
+               <activity
                android:name=".camera.CameraActivity"
-               android:screenOrientation="portrait"/>-->
-
+               android:screenOrientation="portrait"/>
+        -->
 
         <activity
             android:name=".camera.CameraResultActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SelectLocActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.ShowImageActivity"
             android:screenOrientation="portrait" />
@@ -132,9 +122,10 @@
         <activity android:name=".activity.ShowLocActivity" />
         <activity android:name=".activity.ChatSettingActivity" />
 
-        <!--网易云通讯相关-->
+        <!-- 网易云通讯相关 -->
 
-        <!--APP key：https://app.netease.im/index#/app/info/3348138-->
+
+        <!-- APP key：https://app.netease.im/index#/app/info/3348138 -->
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="96d97abfe3174e936679d19025837374" />
@@ -156,13 +147,14 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:process=":core" />
 
-        <!-- 网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
-            保持和 NimService 同一进程 -->
+        <!--
+             网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
+            保持和 NimService 同一进程
+        -->
         <receiver
             android:name="com.netease.nimlib.service.NimReceiver"
             android:exported="false"
             android:process=":core">
-
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -178,22 +170,21 @@
         <!-- 安卓保活配置 -->
         <service
             android:name="com.netease.cosine.core.CosineService"
-            android:process=":cosine"></service>
+            android:process=":cosine" />
 
         <receiver
             android:name="com.netease.cosine.target.CosineReceiver"
             android:exported="true"
-            android:process=":cosine"></receiver>
+            android:process=":cosine" />
 
         <meta-data
             android:name="com.netease.cosine.target"
             android:value="" />
-
         <meta-data
             android:name="com.netease.cosine.target.receiver"
             android:value="com.netease.nimlib.service.NimReceiver" />
 
-        <!--高德地图相关-->
+        <!-- 高德地图相关 -->
 
         <service android:name="com.amap.api.location.APSService" />
 
@@ -208,7 +199,7 @@
             android:name="com.ezreal.chat.MyGlideModule"
             android:value="GlideModule" />
 
+        <activity android:name="com.ezreal.chat.VideoActivity" />
     </application>
-
 
 </manifest>

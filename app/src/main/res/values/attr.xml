@@ -20,4 +20,15 @@
     <declare-styleable name="ExpandTextView">
         <attr name="showLines" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="CommonTitleBar">
+        <attr name="baseStyle">
+            <enum name="normal" value="0" />
+            <enum name="white" value="1" />
+        </attr>
+        <attr name="leftBtnIcon" format="reference" />
+        <attr name="leftBtnText" format="string|reference" />
+        <attr name="titleText" format="string|reference" />
+        <attr name="rightBtnText" format="string|reference" />
+        <attr name="rightBtnIcon" format="reference" />
+    </declare-styleable>
 </resources>
