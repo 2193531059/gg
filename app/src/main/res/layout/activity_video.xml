@@ -12,26 +12,36 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/video_refresher"
-        android:layout_below="@id/ct_play_video"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/exchange_tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_below="@id/ct_play_video"
+        android:layout_gravity="center"
+        app:tabIndicatorColor="#168DE6"
+        app:tabSelectedTextColor="#5CAAE8"
+        app:tabTextColor="#B2B2B2"
+        android:background="#EBEBEB">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <android.support.design.widget.TabItem
+            android:text="手机存储"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/video_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <android.support.design.widget.TabItem
+            android:text="云空间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            </android.support.v7.widget.RecyclerView>
+    </android.support.design.widget.TabLayout>
 
-        </ScrollView>
+    <com.ezreal.chat.widgets.NoScrollViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/exchange_tab">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.ezreal.chat.widgets.NoScrollViewPager>
 
 
 </RelativeLayout>

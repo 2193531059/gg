@@ -18,14 +18,14 @@ import java.util.List;
  * Created by Administrator on 2018/4/13.
  */
 
-public class MyVideoListAdapter extends RecyclerView.Adapter{
+public class MyCloudVideoListAdapter extends RecyclerView.Adapter{
 
     private LayoutInflater inflater;
     private List<VideoItem> mData;
     private Context mContext;
     private MyClickListener mListener;
 
-    public MyVideoListAdapter(List<VideoItem> mData, Context mContext) {
+    public MyCloudVideoListAdapter(List<VideoItem> mData, Context mContext) {
         inflater = LayoutInflater.from(mContext);
         this.mData = mData;
         this.mContext = mContext;
@@ -33,7 +33,7 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.video_item_phone, parent, false);
+        View view = inflater.inflate(R.layout.video_item_cloud, parent, false);
         return new ViewHolder(view);
     }
 
@@ -50,14 +50,6 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
             public void onClick(View v) {
                 if (mListener != null) {
                     mListener.onDeleteClick(position);
-                }
-            }
-        });
-        ((ViewHolder)holder).bt_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onUploadClick(position);
                 }
             }
         });
@@ -78,25 +70,18 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
 
     public interface MyClickListener{
         void onDeleteClick(int position);
-        void onUploadClick(int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tv_file_name;
         private TextView time;
-        private ImageButton bt_upload;
         private ImageButton bt_delete;
-        private ProgressBar progress_scan;
-        private TextView tv_percent;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_file_name = itemView.findViewById(R.id.tv_file_name);
             time = itemView.findViewById(R.id.time);
-            bt_upload = itemView.findViewById(R.id.bt_upload);
             bt_delete = itemView.findViewById(R.id.bt_delete);
-            progress_scan = itemView.findViewById(R.id.progress_scan);
-            tv_percent = itemView.findViewById(R.id.tv_percent);
         }
     }
 }
