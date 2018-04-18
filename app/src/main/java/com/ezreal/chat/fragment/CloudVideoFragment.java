@@ -1,7 +1,10 @@
 package com.ezreal.chat.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,12 +17,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ezreal.chat.HttpUtils;
 import com.ezreal.chat.adapter.MyCloudVideoListAdapter;
 import com.ezreal.chat.adapter.MyVideoListAdapter;
 import com.ezreal.chat.bean.VideoItem;
 import com.ezreal.ezchat.R;
+import com.suntek.commonlibrary.utils.TextUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +37,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Response;
+
+import static com.ezreal.chat.HttpUtils.HOST;
 
 /**
  * Created by Administrator on 2018/4/16.
@@ -67,7 +80,8 @@ public class CloudVideoFragment extends Fragment{
             public void onDeleteClick(int position) {
                 List<VideoItem> items = mAdapter.getmData();
                 VideoItem item = items.get(position);
-                deleteCloudVideo();
+                int id = item.getId();
+                deleteCloudVideo(id);
             }
         });
 
@@ -81,12 +95,97 @@ public class CloudVideoFragment extends Fragment{
         getCloudVideo();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void getCloudVideo(){
+        new AsyncTask<Void, Void, Void>() {
+            String json = null;
 
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Response response = HttpUtils.getInstance().request(HOST + "findAllVideoServlet");
+                try {
+                    if (response != null) {
+                        json = response.body().string();
+                        Log.e(TAG, "doInBackground:getCloudVideo json = " + json);
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "doInBackground:getCloudVideo e = " + e);
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                if (!TextUtils.isEmpty(json)) {
+                    try {
+                        JSONArray array = new JSONArray(json);
+                        for (int i = 0; i<array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
+                            VideoItem item = new VideoItem();
+                            item.setTitle("视频" + (i + 1));
+                            item.setCreatTime("2013-01-01");
+                            item.setFilePath(object.optString("url"));
+                            item.setId(object.optInt("id"));
+                            itemList.add(item);
+                        }
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.execute();
     }
 
-    private void deleteCloudVideo(){
+    @SuppressLint("StaticFieldLeak")
+    private void deleteCloudVideo(final int id){
+        new AsyncTask<Void, Void, Void>() {
+            String json = null;
 
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Log.e(TAG, "doInBackground: url = " + HOST + "deleteByIdServlet?id=" + id);
+                Response response = HttpUtils.getInstance().request(HOST + "deleteByIdServlet?id=" + id);
+                try {
+                    if (response != null) {
+                        json = response.body().string();
+                        Log.e(TAG, "doInBackground:getCloudVideo json = " + json);
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, "doInBackground:getCloudVideo e = " + e);
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<VideoItem> data = mAdapter.getmData();
+                        VideoItem oldItem = null;
+                        for (VideoItem item :data) {
+                            int oldId = item.getId();
+                            if (oldId == id) {
+                                Log.e(TAG, "run: oldId = " + id);
+                                oldItem = item;
+                            }
+                        }
+                        if (oldItem != null) {
+                            data.remove(oldItem);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+        }.execute();
     }
 
     @Override

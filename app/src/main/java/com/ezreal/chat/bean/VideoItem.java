@@ -13,6 +13,15 @@ public class VideoItem implements Serializable{
     private String filePath;
     private String creatTime;
     private UploadState uploadState;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public UploadState getUploadState() {
         return uploadState;

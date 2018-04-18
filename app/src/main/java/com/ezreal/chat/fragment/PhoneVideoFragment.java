@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.security.auth.login.LoginException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -55,6 +57,8 @@ import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
 
+import static com.ezreal.chat.HttpUtils.HOST;
+
 /**
  * Created by Administrator on 2018/4/16.
  */
@@ -62,6 +66,7 @@ import okio.Source;
 public class PhoneVideoFragment extends Fragment{
     private static final String TAG = "PhoneVideoFragment";
     private static final MediaType MEDIA_OBJECT_STREAM = MediaType.parse("application/json; charset=utf-8");
+
 
     private String filePath;
 
@@ -128,10 +133,10 @@ public class PhoneVideoFragment extends Fragment{
                 HashMap<String, Object> params = new HashMap<>();
                 File file = new File(item.getFilePath());
                 if (file.exists()) {
-                    params.put("", file);
+                    params.put("file", file);
                 }
 
-                upload("", params, new ReqProgressCallBack() {
+                upload(HOST + "videoUploadServlet", params, new ReqProgressCallBack() {
                     @Override
                     public void onProgress(double progress) {
                         Log.e(TAG, "onProgress: progress = " + progress);
@@ -347,7 +352,7 @@ public class PhoneVideoFragment extends Fragment{
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e(TAG, e.toString());
+                Log.e(TAG, "onFailure: e1 = " + e.getMessage());
                 failedCallBack(callBack);
             }
 
@@ -405,6 +410,7 @@ public class PhoneVideoFragment extends Fragment{
             @Override
             public void run() {
                 if (callBack != null) {
+                    Log.e(TAG, "run: current = " + current + " total = " + total);
                     double progress = current / total;
                     Log.e(TAG, "run: progress = " + progress);
                     callBack.onProgress(progress);
