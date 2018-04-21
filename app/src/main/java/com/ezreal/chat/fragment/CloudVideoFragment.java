@@ -2,6 +2,7 @@ package com.ezreal.chat.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ezreal.chat.HttpUtils;
+import com.ezreal.chat.VideoInfoActivity;
 import com.ezreal.chat.adapter.MyCloudVideoListAdapter;
 import com.ezreal.chat.adapter.MyVideoListAdapter;
 import com.ezreal.chat.bean.VideoItem;
@@ -82,6 +84,21 @@ public class CloudVideoFragment extends Fragment{
                 VideoItem item = items.get(position);
                 int id = item.getId();
                 deleteCloudVideo(id);
+            }
+
+            @Override
+            public void onPlayClick(int position) {
+                List<VideoItem> items = mAdapter.getmData();
+                VideoItem item = items.get(position);
+                String url = item.getFilePath();
+                String title = item.getTitle();
+                Log.e(TAG, "onPlayClick: url = " + url);
+                Bundle bundle = new Bundle();
+                bundle.putString("url", HOST + url);
+                bundle.putString("title", title);
+                Intent intent = new Intent(getActivity(), VideoInfoActivity.class);
+                intent.putExtra("bundle", bundle);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -180,6 +197,7 @@ public class CloudVideoFragment extends Fragment{
                         }
                         if (oldItem != null) {
                             data.remove(oldItem);
+                            mAdapter.setDelete(false);
                             mAdapter.notifyDataSetChanged();
                         }
                     }

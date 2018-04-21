@@ -2,6 +2,7 @@ package com.ezreal.chat.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.ezreal.chat.bean.VideoItem;
 import com.ezreal.ezchat.R;
+import com.mikepenz.iconics.view.IconicsImageView;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
     private List<VideoItem> mData;
     private Context mContext;
     private MyClickListener mListener;
+    private boolean isDeleteClick = false;
+    private boolean isUploadClick = false;
 
     public MyVideoListAdapter(List<VideoItem> mData, Context mContext) {
         inflater = LayoutInflater.from(mContext);
@@ -49,6 +53,7 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
+                    isDeleteClick = true;
                     mListener.onDeleteClick(position);
                 }
             }
@@ -57,10 +62,29 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
+                    isUploadClick = true;
                     mListener.onUploadClick(position);
                 }
             }
         });
+        ((ViewHolder)holder).view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    if (!isUploadClick && !isDeleteClick) {
+                        mListener.onPlayClick(position);
+                    }
+                }
+            }
+        });
+    }
+
+    public void setDeleteClick(boolean deleteClick) {
+        isDeleteClick = deleteClick;
+    }
+
+    public void setUploadClick(boolean uploadClick) {
+        isUploadClick = uploadClick;
     }
 
     public List<VideoItem> getmData(){
@@ -79,6 +103,7 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
     public interface MyClickListener{
         void onDeleteClick(int position);
         void onUploadClick(int position);
+        void onPlayClick(int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -88,9 +113,11 @@ public class MyVideoListAdapter extends RecyclerView.Adapter{
         private ImageButton bt_delete;
         private ProgressBar progress_scan;
         private TextView tv_percent;
+        private View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             tv_file_name = itemView.findViewById(R.id.tv_file_name);
             time = itemView.findViewById(R.id.time);
             bt_upload = itemView.findViewById(R.id.bt_upload);

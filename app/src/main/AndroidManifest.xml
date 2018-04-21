@@ -200,6 +200,10 @@
             android:value="GlideModule" />
 
         <activity android:name="com.ezreal.chat.VideoActivity" />
+        <activity android:name="com.ezreal.chat.VideoInfoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
     </application>
 
 </manifest>

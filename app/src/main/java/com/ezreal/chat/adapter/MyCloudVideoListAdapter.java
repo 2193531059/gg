@@ -24,6 +24,7 @@ public class MyCloudVideoListAdapter extends RecyclerView.Adapter{
     private List<VideoItem> mData;
     private Context mContext;
     private MyClickListener mListener;
+    private boolean isDelete = false;
 
     public MyCloudVideoListAdapter(List<VideoItem> mData, Context mContext) {
         inflater = LayoutInflater.from(mContext);
@@ -49,10 +50,25 @@ public class MyCloudVideoListAdapter extends RecyclerView.Adapter{
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
+                    isDelete = true;
                     mListener.onDeleteClick(position);
                 }
             }
         });
+        ((ViewHolder)holder).view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    if (!isDelete) {
+                        mListener.onPlayClick(position);
+                    }
+                }
+            }
+        });
+    }
+
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 
     public List<VideoItem> getmData(){
@@ -70,15 +86,18 @@ public class MyCloudVideoListAdapter extends RecyclerView.Adapter{
 
     public interface MyClickListener{
         void onDeleteClick(int position);
+        void onPlayClick(int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tv_file_name;
         private TextView time;
         private ImageButton bt_delete;
+        private View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             tv_file_name = itemView.findViewById(R.id.tv_file_name);
             time = itemView.findViewById(R.id.time);
             bt_delete = itemView.findViewById(R.id.bt_delete);

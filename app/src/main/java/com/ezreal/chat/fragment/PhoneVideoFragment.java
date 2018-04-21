@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ezreal.chat.VideoActivity;
+import com.ezreal.chat.VideoInfoActivity;
 import com.ezreal.chat.adapter.MyVideoListAdapter;
 import com.ezreal.chat.bean.VideoItem;
 import com.ezreal.ezchat.R;
@@ -121,6 +122,7 @@ public class PhoneVideoFragment extends Fragment{
                 if (deleteFile.exists()) {
                     deleteFile.delete();
                     items.remove(item);
+                    mAdapter.setDeleteClick(false);
                     mAdapter.notifyDataSetChanged();
                 }
             }
@@ -144,14 +146,33 @@ public class PhoneVideoFragment extends Fragment{
 
                     @Override
                     public void onSuccess() {
+                        Toast.makeText(getActivity(), "上传完成！", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onSuccess:");
+                        mAdapter.setUploadClick(false);
                     }
 
                     @Override
                     public void onFailer() {
+                        Toast.makeText(getActivity(), "上传失败！", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "onFailer: ");
+                        mAdapter.setUploadClick(false);
                     }
                 });
+            }
+
+            @Override
+            public void onPlayClick(int position) {
+                List<VideoItem> items = mAdapter.getmData();
+                VideoItem item = items.get(position);
+                String url = item.getFilePath();
+                String title = item.getTitle();
+                Log.e(TAG, "onPlayClick: url = " + url);
+                Bundle bundle = new Bundle();
+                bundle.putString("url", url);
+                bundle.putString("title", title);
+                Intent intent = new Intent(getActivity(), VideoInfoActivity.class);
+                intent.putExtra("bundle", bundle);
+                getActivity().startActivity(intent);
             }
         });
 
